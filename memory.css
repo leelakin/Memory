@@ -1,0 +1,37 @@
+body{
+	font-family: "Verdana";
+	color: #333;
+}
+img{
+	width:200px;
+	border-radius:10px;
+}
+h1{
+	margin:0px;
+	padding:0px;
+	font-size: 4em;
+}
+#center{
+	text-align:center;
+}
+p{
+	font-size: 1.2em;
+	margin:0px;
+	margin-bottom: 20px;
+	padding:0px;
+}
+#memorywrapper{
+	display: inline-block;
+	border-radius:10px;
+	border: 3px solid #39f;
+	padding: 20px;
+}
+button{
+	min-width: 60px;
+	min-height:40px;
+	border: 2px solid #989898;
+	border-radius: 10px;
+	font-size:0.73em;
+	padding:8px;
+	background-color: #E7E7E7;
+}

@@ -1,23 +1,25 @@
+/*
+PURE JAVASCRIPT, NOT IE8 OR LOWER
+*/
 
 window.onload = function(){
 	
-	allImgs().map(function(arrayCell){
+	allImgs().map(function(arrayCell){ //each cell of array allImgs has event listener added
 		arrayCell.addEventListener("click", matchMaking); //no brackets after function var because it's just a reference, not a call
 		}
 	);
 }; 
-
 
 function allImgs(){
 	var allImgs = document.getElementsByClassName("pft"); // THIS RETURNS A HTML COLLECTION WITH ALL ELEMENTS W/THAT CLASS
 	return [].slice.call(allImgs); //call(allImgs) makes call function think it's being called from allImgs instead of the array.
 }//I need the [array] to add the EventListener via .map(). Might be faster to just loop thru HTML collection in window.onload to addEventListener.
 
-var imgArray = function(){
+var imgArray = function(){ //
 	return [3,1,6,4,2,3,5,2,4,5,6,1] //Set order for now; there are 12 cards, so 6 image pairs.
 }; 
 
-var activatedCards = []; //is there a way to initialise this non-globally? Would I have to put it in another function?
+var activatedCards = []; //is there a way to initialise these non-globally? Would I have to put them in another function/closure?
 var countedPairs = 0;
 
 var activate = function(turnedId,turnedSrc){ //can't just hand over event.target and then ask for id & src within function because the scope has changed
@@ -25,9 +27,9 @@ var activate = function(turnedId,turnedSrc){ //can't just hand over event.target
 	return activatedCards;//all elements that have been clicked (max. 2) as objects in a array
 };
 
-var pairCounter = function(){
-	if (countedPairs == 5){
-		document.getElementById("lilhelp").innerHTML ="YOU MADE IT YAAAAAY&emsp;<button id=\"newgame\">New game</button>";
+var pairCounter = function(){ //fires when a pair is uncovered
+	if (countedPairs == 5){ //changes text when all have been uncovered
+		document.getElementById("lilhelp").innerHTML ="Well done, you made it!&emsp;<button id=\"newgame\">New game</button>";
 		document.getElementById("newgame").onclick = function(){window.location.reload()};
 	};
 	return countedPairs++;
@@ -48,12 +50,12 @@ function matchMaking(event){  //EVERY TIME A CARD GETS CLICKED, ALL OF THIS HAPP
 
 			if (activatedCards[activatedCards.length-1].pic === activatedCards[activatedCards.length-2].pic){ //if they match
 
-				document.getElementById("lilhelp").innerHTML = "YOU FOUND A PAIR OMG";
+				document.getElementById("lilhelp").innerHTML = "You found a pair! Keep going.";
 				pairCounter(); //counting up number of pairs
 				activatedCards = []
 
-			} else { // put all of the else content in a function and setTimeOut ??
-				document.getElementById("lilhelp").innerHTML = "Nooope."; //if they don't match
+			} else { // if they don't match
+				document.getElementById("lilhelp").innerHTML = "Sorry, try again."; //if they don't match
 				
 				// get the position value from each object in the array
 				// then change the dom elements' src with this id
@@ -62,10 +64,10 @@ function matchMaking(event){  //EVERY TIME A CARD GETS CLICKED, ALL OF THIS HAPP
 				activatedCards[0];
 				activatedCards[1];
 
-				document.getElementById(activatedCards[0].position).src = "img/back.png";
-				document.getElementById(activatedCards[1].position).src = "img/back.png";
-				document.getElementById("lilhelp").innerHTML = "Try again, bruh";
-				activatedCards = [];
+				document.getElementById(activatedCards[0].position).src = "img/back.png"; //position taken from previously added object of overturned card;
+				document.getElementById(activatedCards[1].position).src = "img/back.png"; //needed bc I only want to turn those back over!
+				document.getElementById("lilhelp").innerHTML = "Don't give up now!";
+				activatedCards = []
 
 			},700)
 			}
